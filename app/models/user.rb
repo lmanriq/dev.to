@@ -1,3 +1,5 @@
+# This class holds onto all of a user's stats and information, might add a has_many line for new stats
+
 class User < ApplicationRecord
   self.ignored_columns = ["organization_id"]
 
@@ -22,6 +24,8 @@ class User < ApplicationRecord
   has_many :badge_achievements, dependent: :destroy
   has_many :badges, through: :badge_achievements
   has_many :collections, dependent: :destroy
+  # Keeps track of how many comments a user has made
+  # If a user is deleted, their comments are deleted as well 
   has_many :comments, dependent: :destroy
   has_many :email_messages, class_name: "Ahoy::Message", dependent: :destroy
   has_many :github_repos, dependent: :destroy
