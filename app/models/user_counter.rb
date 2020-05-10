@@ -1,3 +1,5 @@
+# Holds comments in past 7 days info- could be useful for stats
+
 class UserCounter < ApplicationRecord
   belongs_to :user
 

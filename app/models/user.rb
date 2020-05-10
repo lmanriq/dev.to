@@ -1,3 +1,5 @@
+# holds all of a uiser's info
+
 class User < ApplicationRecord
   self.ignored_columns = ["organization_id"]
 

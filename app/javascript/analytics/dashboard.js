@@ -1,5 +1,6 @@
 import { callHistoricalAPI, callReferrersAPI } from './client';
 
+// removes selected class from buttons, adds select class to active button- will need to use this if we make an additional button
 function resetActive(activeButton) {
   const buttons = document.getElementsByClassName('timerange-button');
   for (let i = 0; i < buttons.length; i += 1) {
@@ -21,6 +22,7 @@ function cardHTML(stat, header) {
   `;
 }
 
+// we could build out additional stats here rather than use a new page view as suggested in my wireframe
 function writeCards(data, timeRangeLabel) {
   const readers = sumAnalytics(data, 'page_views');
   const reactions = sumAnalytics(data, 'reactions');
@@ -38,6 +40,7 @@ function writeCards(data, timeRangeLabel) {
   followerCard.innerHTML = cardHTML(follows, `Followers ${timeRangeLabel}`);
 }
 
+// Add charts for data from each variable
 function drawChart({ canvas, title, labels, datasets }) {
   const options = {
     legend: {
@@ -60,7 +63,7 @@ function drawChart({ canvas, title, labels, datasets }) {
     },
   };
 
-  import("chart.js").then(({ Chart }) => {
+  import('chart.js').then(({ Chart }) => {
     // eslint-disable-next-line no-new
     new Chart(canvas, {
       type: 'line',
@@ -206,6 +209,7 @@ function callAnalyticsAPI(date, timeRangeLabel, { organizationId, articleId }) {
   });
 }
 
+// past week chart
 function drawWeekCharts({ organizationId, articleId }) {
   resetActive(document.getElementById('week-button'));
   const oneWeekAgo = new Date();
@@ -213,6 +217,7 @@ function drawWeekCharts({ organizationId, articleId }) {
   callAnalyticsAPI(oneWeekAgo, 'this Week', { organizationId, articleId });
 }
 
+// past month chart
 function drawMonthCharts({ organizationId, articleId }) {
   resetActive(document.getElementById('month-button'));
   const oneMonthAgo = new Date();
@@ -220,6 +225,7 @@ function drawMonthCharts({ organizationId, articleId }) {
   callAnalyticsAPI(oneMonthAgo, 'this Month', { organizationId, articleId });
 }
 
+// chart for all time
 function drawInfinityCharts({ organizationId, articleId }) {
   resetActive(document.getElementById('infinity-button'));
   // April 1st is when the DEV analytics feature went into place

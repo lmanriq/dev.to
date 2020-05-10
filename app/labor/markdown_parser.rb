@@ -2,6 +2,7 @@ class MarkdownParser
   include ApplicationHelper
   include CloudinaryHelper
 
+  # this number may be useful
   WORDS_READ_PER_MINUTE = 275.0
 
   def initialize(content)
@@ -33,6 +34,8 @@ class MarkdownParser
     wrap_mentions_with_links!(html)
   end
 
+  #
+  # article word count and read time will be needed for our stats
   def calculate_reading_time
     word_count = @content.split(/\W+/).count
     (word_count / WORDS_READ_PER_MINUTE).ceil
