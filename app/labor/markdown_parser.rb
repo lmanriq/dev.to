@@ -33,6 +33,7 @@ class MarkdownParser
     wrap_mentions_with_links!(html)
   end
 
+  # Grabs an articles word count and then calculates the reading time for that article
   def calculate_reading_time
     word_count = @content.split(/\W+/).count
     (word_count / WORDS_READ_PER_MINUTE).ceil
