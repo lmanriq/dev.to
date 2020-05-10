@@ -2,6 +2,9 @@ class PageViewsController < ApplicationMetalController
   # ApplicationMetalController because we do not need all bells and whistles of ApplicationController, so should help performance.
   include ActionController::Head
 
+  # This will likely be relevant for our stats for total articles read, total words read, and avg articles per day. 
+  # It won't need to be updated, but we will use this information 
+
   def create
     page_view_create_params = if session_current_user_id
                                 page_view_params.merge(user_id: session_current_user_id)

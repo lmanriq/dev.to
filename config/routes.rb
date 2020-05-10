@@ -327,6 +327,7 @@ Rails.application.routes.draw do
   get "/settings/(:tab)" => "users#edit", :as => :user_settings
   get "/settings/:tab/:org_id" => "users#edit"
   get "/signout_confirm" => "users#signout_confirm"
+  # We might add a dashboard route here or modify the data displayed by the pro dashboards 
   get "/dashboard" => "dashboards#show"
   get "/dashboard/pro" => "dashboards#pro"
   get "dashboard/pro/org/:org_id" => "dashboards#pro"
