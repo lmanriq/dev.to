@@ -1,16 +1,23 @@
 <div class="actions">
+# These are the dashboard links for the three different views. We will ad a "stats" view for our track
+# If the params given to the code by the ruby route has the action corresponding to that button, then the link will get the active class 
+# The posts link is highlighted by default
   <a class="action <%= "active" if params[:action] == "show" && (params[:which] == "organization" || params[:which].blank?) %>" href="/dashboard">
     <span>POSTS</span>
+    # this span displays the current user's article count 
     <span>(<%= @user.articles_count %>)</span>
   </a>
   <a class="action <%= "active" if params[:action] == "followers" %>" href="/dashboard/user_followers">
     <span>FOLLOWERS</span>
+    # this span displays the current user's followerrs count 
     <span>(<%= @user.followers_count %>)</span>
   </a>
   <a class="action <%= "active" if params[:action] == "following" || params[:action].include?("following") %>" href="/dashboard/following">
     <span>FOLLOWING</span>
+    # this span displays the current user's following count for users, tags, organizations, and podcasts
     <span>(<%= @user.following_users_count + @user.following_tags_count + @user.following_organizations_count + @user.following_podcasts_count %>)</span>
   </a>
+  # If the user is a pro user, they will also see a pro analytics dashboard link
   <% if @user.has_role? :pro %>
     <a class="action" href="/dashboard/pro">
       <span>PRO ANALYTICS</span>
