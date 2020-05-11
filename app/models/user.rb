@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :organization_memberships, dependent: :destroy
   has_many :organizations, through: :organization_memberships
   has_many :api_secrets, dependent: :destroy
+
+  # the total number of comments across all of a users' articles = number of comments
   has_many :articles, dependent: :destroy
   has_many :badge_achievements, dependent: :destroy
   has_many :badges, through: :badge_achievements
@@ -44,6 +46,8 @@ class User < ApplicationRecord
 
   has_many :rating_votes, dependent: :destroy
   has_many :html_variants, dependent: :destroy
+
+  # total articles read = count of page_views
   has_many :page_views, dependent: :destroy
   has_many :credits, dependent: :destroy
   has_many :classified_listings, dependent: :destroy

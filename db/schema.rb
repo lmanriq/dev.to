@@ -70,6 +70,8 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
     t.integer "collection_position"
     t.integer "comment_score", default: 0
     t.string "comment_template"
+
+    #can probably use this for number of comments to simplify AR query
     t.integer "comments_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "crossposted_at"
@@ -105,6 +107,8 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
     t.integer "organic_page_views_past_week_count", default: 0
     t.integer "organization_id"
     t.datetime "originally_published_at"
+
+    #could be relevant for additional stats
     t.integer "page_views_count", default: 0
     t.boolean "paid", default: false
     t.string "password"
@@ -686,15 +690,20 @@ ActiveRecord::Schema.define(version: 2020_02_27_214321) do
   end
 
   create_table "page_views", force: :cascade do |t|
+    #refers to the ID of the article
     t.bigint "article_id"
     t.integer "counts_for_number_of_views", default: 1
     t.datetime "created_at", null: false
     t.string "domain"
     t.string "path"
     t.string "referrer"
+    #seems to log amount of time spent on an article,
+    #may be relevant for 'Average active time on pages per day'
     t.integer "time_tracked_in_seconds", default: 15
     t.datetime "updated_at", null: false
     t.string "user_agent"
+
+    #refers to the ID of the user who visited the article
     t.bigint "user_id"
     t.index ["article_id"], name: "index_page_views_on_article_id"
     t.index ["created_at"], name: "index_page_views_on_created_at"

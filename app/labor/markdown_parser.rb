@@ -34,6 +34,7 @@ class MarkdownParser
   end
 
   def calculate_reading_time
+    # example of getting an article's word count
     word_count = @content.split(/\W+/).count
     (word_count / WORDS_READ_PER_MINUTE).ceil
   end
