@@ -54,6 +54,9 @@ class DashboardsController < ApplicationController
       includes(:follower).order("created_at DESC").limit(@follows_limit)
   end
 
+  # Pro is the method that is called on teh route when dashboards/pro is loaded, so we need to look in
+  # the dashboards view folder and at the pro.html file
+
   def pro
     @user_or_org = if params[:org_id]
                      org = Organization.find_by(id: params[:org_id])
