@@ -1,3 +1,4 @@
+<%# links %>
 <div class="actions">
   <a class="action <%= "active" if params[:action] == "show" && (params[:which] == "organization" || params[:which].blank?) %>" href="/dashboard">
     <span>POSTS</span>
@@ -11,6 +12,7 @@
     <span>FOLLOWING</span>
     <span>(<%= @user.following_users_count + @user.following_tags_count + @user.following_organizations_count + @user.following_podcasts_count %>)</span>
   </a>
+  <%# we can either add a new link to stats or maybe build out the pro dashboard for stats %>
   <% if @user.has_role? :pro %>
     <a class="action" href="/dashboard/pro">
       <span>PRO ANALYTICS</span>
