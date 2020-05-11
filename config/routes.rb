@@ -328,6 +328,9 @@ Rails.application.routes.draw do
   get "/settings/:tab/:org_id" => "users#edit"
   get "/signout_confirm" => "users#signout_confirm"
   # We might add a dashboard route here or modify the data displayed by the pro dashboards 
+  # Dashboards is the controller and show is the method
+  # go to the dashboards controller doc and find the pro method 
+  # The pro method then displays a view which can be found in views/dashboards/pro.html.erb
   get "/dashboard" => "dashboards#show"
   get "/dashboard/pro" => "dashboards#pro"
   get "dashboard/pro/org/:org_id" => "dashboards#pro"
