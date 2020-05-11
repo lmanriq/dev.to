@@ -18,6 +18,9 @@
     <span>(<%= @user.following_users_count + @user.following_tags_count + @user.following_organizations_count + @user.following_podcasts_count %>)</span>
   </a>
   # If the user is a pro user, they will also see a pro analytics dashboard link
+  # Just deleting this conditional doesn't render the pro analytics page, so there is probably something
+  # else going on with rails and the permissions 
+  # /dashboard/pro 
   <% if @user.has_role? :pro %>
     <a class="action" href="/dashboard/pro">
       <span>PRO ANALYTICS</span>
