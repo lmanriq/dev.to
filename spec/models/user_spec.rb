@@ -941,4 +941,16 @@ RSpec.describe User, type: :model do
       expect(user.receives_follower_email_notifications?).to be(true)
     end
   end
+
+  describe "#articles_read" do
+    it "returns a count of articles read" do
+      create_list(:page_view, 5, user: user)
+      expect(user.articles_read).to eq(5)
+    end
+
+    it "does not count the same article twice" do
+      create_list(:page_view, 5, user: user, article: create(:article))
+      expect(user.articles_read).to eq(1)
+    end
+  end
 end
