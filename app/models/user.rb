@@ -482,6 +482,10 @@ class User < ApplicationRecord
     name
   end
 
+  def articles_read
+    page_views.group(:article_id).count.length
+  end
+
   private
 
   def index_id
