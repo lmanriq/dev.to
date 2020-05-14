@@ -486,7 +486,23 @@ class User < ApplicationRecord
     page_views.group(:article_id).count.length
   end
 
+  def words_read
+    html_words = page_views.
+      joins(:article).
+      pluck(:processed_html).
+      join
+    word_count(remove_tags(html_words))
+  end
+
   private
+
+  def word_count(words)
+    words.split(/\W+/).length
+  end
+
+  def remove_tags(html_text)
+    ActionView::Base.full_sanitizer.sanitize(html_text)
+  end
 
   def index_id
     "users-#{id}"
