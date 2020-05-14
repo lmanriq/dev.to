@@ -953,4 +953,18 @@ RSpec.describe User, type: :model do
       expect(user.articles_read).to eq(1)
     end
   end
+
+  describe "#words_read" do
+    it "returns number of words read" do
+      article1 = create(:article, body_markdown: "---\ntitle: hi\npublished: true\ntags: hello\ndate: \nseries: \ncanonical_url: \n---\n\nthis article\n\nhas five words\n\n")
+      article2 = create(:article, body_markdown: "---\ntitle: hi\npublished: true\ntags: hello\ndate: \nseries: \ncanonical_url: \n---\n\nthis has\n\nthree\n\n")
+      create(:page_view, user: user, article: article1)
+      create(:page_view, user: user, article: article2)
+      expect(user.words_read).to eq(8)
+    end
+
+    it "returns zero if no articles were read" do
+      expect(user.words_read).to eq(0)
+    end
+  end
 end
