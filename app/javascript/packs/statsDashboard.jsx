@@ -7,15 +7,18 @@
 // <p>Number of comments: <span id="total-comments"></span></p>
 
 // const totalVisits = document
+import PropTypes from 'prop-types';
+// import { userPropTypes } from '../src/components/common-prop-types';
 
 import { h, render } from 'preact';
 
-const StatsDash = () => {
+const StatsDash = props => {
+  const { visits } = props;
   return (
     <section>
       <p>
         Number of total visits to the site:
-        <span>1</span>
+        <span>{visits}</span>
       </p>
       <p>
         Number of visits per day:
@@ -46,7 +49,12 @@ const StatsDash = () => {
 };
 
 const loadStatsDash = () => {
-  render(<StatsDash />, document.getElementById('stats-dash'));
+  const root = document.getElementById('stats-dash');
+  render(<StatsDash visits={root.dataset.visits} />, root);
 };
 
 loadStatsDash();
+
+StatsDash.propTypes = {
+  visits: PropTypes.number.isRequired,
+};
