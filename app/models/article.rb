@@ -247,6 +247,10 @@ class Article < ApplicationRecord
     stories.pluck(:path, :title, :comments_count, :created_at)
   end
 
+  def self.collective_comment_count
+    sum(:comments_count)
+  end
+
   def self.seo_boostable(tag = nil, time_ago = 18.days.ago)
     time_ago = 5.days.ago if time_ago == "latest" # Time ago sometimes returns this phrase instead of a date
     time_ago = 75.days.ago if time_ago.nil? # Time ago sometimes is given as nil and should then be the default. I know, sloppy.
