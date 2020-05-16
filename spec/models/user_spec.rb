@@ -980,4 +980,20 @@ RSpec.describe User, type: :model do
       expect(user.page_time).to eq(0)
     end
   end
+
+  describe "#average_articles_per_day" do
+    it "returns average articles read per day" do
+      create_list(:page_view, 60, user: user)
+      Timecop.freeze(user.created_at.to_date + 10) do
+        expect(user.average_articles_per_day).to eq(6)
+      end
+    end
+
+    it "returns average articles read for newly created user" do
+      create_list(:page_view, 10, user: user)
+      Timecop.freeze(user.created_at.to_date) do
+        expect(user.average_articles_per_day).to eq(10)
+      end
+    end
+  end
 end
