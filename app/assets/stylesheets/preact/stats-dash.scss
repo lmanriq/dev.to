@@ -1,3 +1,41 @@
-#stats-dash span {
-  color: blue;
+@import '_colors';
+
+.stats-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  margin: 1em 0;
 }
+
+.stats-info article {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1em auto;
+  padding: 1em;
+  color: $snowflake;
+  width: 8em;
+  height: 8em;
+  background-color: $dolphin-lighter;
+  box-shadow: 2px 2px 5px $avocado-lighter;
+  border-radius: 3px;
+  &:hover {
+    background-color: $dolphin;
+    box-shadow: 5px 5px 5px $avocado-lighter;
+  }
+}
+
+.stats-info article p {
+  text-align: center;
+}
+
+.stats-info article span {
+  color: $avocado-lighter;
+  font-size: 2em;
+}
+
+// $dolphin-lighter
+// $avocado-lighter
+// $peanut-lighter
+// $raspberry-lighter
