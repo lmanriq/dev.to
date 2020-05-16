@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActionView::MissingTemplate, with: :routing_error
 
+  helper_method :iterate_visits
+
   def not_found
     raise ActiveRecord::RecordNotFound, "Not Found"
   end
@@ -73,5 +75,9 @@ class ApplicationController < ActionController::Base
 
   def touch_current_user
     current_user.touch
+  end
+
+  def iterate_visits
+    current_user&.update(sign_in_count: current_user.sign_in_count + 1)
   end
 end
