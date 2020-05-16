@@ -68,8 +68,8 @@ class DashboardsController < ApplicationController
 
   def stats
     @stats = {
-      total_visits: "WIP",
-      daily_visits: "WIP",
+      total_visits: current_user.sign_in_count,
+      daily_visits: current_user.average_visits_per_day,
       daily_active_time: current_user.page_time,
       articles_read: current_user.articles_read,
       words_read: current_user.words_read,
