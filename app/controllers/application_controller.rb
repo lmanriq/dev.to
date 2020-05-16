@@ -78,6 +78,11 @@ class ApplicationController < ActionController::Base
   end
 
   def iterate_visits
-    current_user&.update(sign_in_count: current_user.sign_in_count + 1)
+    return unless current_user
+
+    if (Time.now.utc - current_user.updated_at) / 3600 >= 1
+      current_user&.update(sign_in_count: current_user.sign_in_count + 1)
+    end
+    current_user&.update(updated_at: Time.now.utc)
   end
 end
