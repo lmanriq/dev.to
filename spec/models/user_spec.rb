@@ -967,4 +967,17 @@ RSpec.describe User, type: :model do
       expect(user.words_read).to eq(0)
     end
   end
+
+  describe "#page_time" do
+    it "returns total time spent on pages" do
+      create(:page_view, user: user, time_tracked_in_seconds: 60)
+      create(:page_view, user: user, time_tracked_in_seconds: 30)
+
+      expect(user.page_time).to eq(90)
+    end
+
+    it "returns zero if no pages were visited" do
+      expect(user.page_time).to eq(0)
+    end
+  end
 end
