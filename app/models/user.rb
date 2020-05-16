@@ -486,7 +486,43 @@ class User < ApplicationRecord
     page_views.group(:article_id).count.length
   end
 
+  def words_read
+    html_words = page_views.
+      joins(:article).
+      pluck(:processed_html).
+      join
+    word_count(remove_tags(html_words))
+  end
+
+  def page_time
+    page_views.sum(:time_tracked_in_seconds)
+  end
+
+  def average_articles_per_day
+    (page_views.count / days_old.to_f).round(2)
+  end
+
+  def average_words_per_day
+    (words_read / days_old.to_f).round(2)
+  end
+
+  def average_visits_per_day
+    (sign_in_count / days_old.to_f).round(2)
+  end
+
   private
+
+  def days_old
+    @days_old ||= 1 + (Date.current - created_at.to_date).to_i
+  end
+
+  def word_count(words)
+    words.split(/\W+/).length
+  end
+
+  def remove_tags(html_text)
+    ActionView::Base.full_sanitizer.sanitize(html_text)
+  end
 
   def index_id
     "users-#{id}"

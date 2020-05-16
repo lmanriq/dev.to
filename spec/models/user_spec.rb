@@ -953,4 +953,85 @@ RSpec.describe User, type: :model do
       expect(user.articles_read).to eq(1)
     end
   end
+
+  describe "#words_read" do
+    it "returns number of words read" do
+      article1 = create(:article, body_markdown: "---\ntitle: hi\npublished: true\ntags: hello\ndate: \nseries: \ncanonical_url: \n---\n\nthis article\n\nhas five words\n\n")
+      article2 = create(:article, body_markdown: "---\ntitle: hi\npublished: true\ntags: hello\ndate: \nseries: \ncanonical_url: \n---\n\nthis has\n\nthree\n\n")
+      create(:page_view, user: user, article: article1)
+      create(:page_view, user: user, article: article2)
+      expect(user.words_read).to eq(8)
+    end
+
+    it "returns zero if no articles were read" do
+      expect(user.words_read).to eq(0)
+    end
+  end
+
+  describe "#page_time" do
+    it "returns total time spent on pages" do
+      create(:page_view, user: user, time_tracked_in_seconds: 60)
+      create(:page_view, user: user, time_tracked_in_seconds: 30)
+
+      expect(user.page_time).to eq(90)
+    end
+
+    it "returns zero if no pages were visited" do
+      expect(user.page_time).to eq(0)
+    end
+  end
+
+  describe "#average_articles_per_day" do
+    it "returns average articles read per day" do
+      create_list(:page_view, 60, user: user)
+      Timecop.freeze(user.created_at.to_date + 9) do
+        expect(user.average_articles_per_day).to eq(6)
+      end
+    end
+
+    it "returns average articles read for newly created user" do
+      create_list(:page_view, 10, user: user)
+      Timecop.freeze(user.created_at.to_date) do
+        expect(user.average_articles_per_day).to eq(10)
+      end
+    end
+  end
+
+  describe "#average_words_per_day" do
+    it "returns average words read per day" do
+      article1 = create(:article, body_markdown: "---\ntitle: hi\npublished: true\ntags: hello\ndate: \nseries: \ncanonical_url: \n---\n\nthis article\n\nhas five words\n\n")
+      article2 = create(:article, body_markdown: "---\ntitle: hi\npublished: true\ntags: hello\ndate: \nseries: \ncanonical_url: \n---\n\nthis has\n\nthree\n\n")
+      create(:page_view, user: user, article: article1)
+      create(:page_view, user: user, article: article2)
+      Timecop.freeze(user.created_at.to_date + 1) do
+        expect(user.average_words_per_day).to eq(4)
+      end
+    end
+
+    it "returns average words read for newly created user" do
+      article1 = create(:article, body_markdown: "---\ntitle: hi\npublished: true\ntags: hello\ndate: \nseries: \ncanonical_url: \n---\n\nthis article\n\nhas five words\n\n")
+      article2 = create(:article, body_markdown: "---\ntitle: hi\npublished: true\ntags: hello\ndate: \nseries: \ncanonical_url: \n---\n\nthis has\n\nthree\n\n")
+      create(:page_view, user: user, article: article1)
+      create(:page_view, user: user, article: article2)
+      Timecop.freeze(user.created_at.to_date) do
+        expect(user.average_words_per_day).to eq(8)
+      end
+    end
+  end
+
+  describe "#visits_per_day" do
+    it "returns average visits per day" do
+      user.update(sign_in_count: 10)
+      Timecop.freeze(user.created_at.to_date + 9) do
+        expect(user.average_visits_per_day).to eq(1)
+      end
+    end
+
+    it "returns average visits for newly created user" do
+      user.update(sign_in_count: 10)
+      Timecop.freeze(user.created_at.to_date) do
+        expect(user.average_visits_per_day).to eq(10)
+      end
+    end
+  end
 end

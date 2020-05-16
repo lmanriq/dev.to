@@ -488,6 +488,21 @@ RSpec.describe Article, type: :model do
     end
   end
 
+  describe "::collective_comment_count" do
+    it "returns a count of comments across a collection" do
+      article1 = create(:article)
+      article1.comments << create_list(:comment, 1)
+      article2 = create(:article)
+      article2.comments << create_list(:comment, 2)
+      article3 = create(:article)
+      article3.comments << create_list(:comment, 3)
+
+      user.articles << [article1, article2, article3]
+
+      expect(user.articles.collective_comment_count).to eq(6)
+    end
+  end
+
   describe ".seo_boostable" do
     let!(:top_article) do
       create(:article, organic_page_views_past_month_count: 20, score: 30, tags: "good, greatalicious", user: user)

@@ -1,2 +1,10 @@
-<section id="stats-dash" data-visits=9>
+<section id="stats-dash"
+  data-visits='<%= @stats[:total_visits] %>'
+  data-daily-visits='<%= @stats[:daily_visits] %>'
+  data-daily-time='<%= distance_of_time_in_words(@stats[:daily_active_time]) %>'
+  data-articles='<%= @stats[:articles_read] %>'
+  data-words='<%= @stats[:words_read] %>'
+  data-daily-articles='<%= @stats[:average_articles_per_day] %>'
+  data-daily-words='<%= @stats[:average_words_per_day] %>'
+  data-comments='<%= @stats[:comments_received] %>'>
 </section>

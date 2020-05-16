@@ -66,7 +66,18 @@ class DashboardsController < ApplicationController
     @organizations = current_user.member_organizations
   end
 
-  def stats; end
+  def stats
+    @stats = {
+      total_visits: current_user.sign_in_count,
+      daily_visits: current_user.average_visits_per_day,
+      daily_active_time: current_user.page_time,
+      articles_read: current_user.articles_read,
+      words_read: current_user.words_read,
+      average_articles_per_day: current_user.average_articles_per_day,
+      average_words_per_day: current_user.average_words_per_day,
+      comments_received: current_user.articles.collective_comment_count
+    }
+  end
 
   private
 
