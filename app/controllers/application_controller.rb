@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActionView::MissingTemplate, with: :routing_error
 
-  helper_method :iterate_visits
+  helper_method :increment_visits
 
   def not_found
     raise ActiveRecord::RecordNotFound, "Not Found"
@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
     current_user.touch
   end
 
-  def iterate_visits
+  def increment_visits
     return unless current_user
 
     if (Time.now.utc - current_user.updated_at) / 3600 >= 1
