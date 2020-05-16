@@ -506,6 +506,10 @@ class User < ApplicationRecord
     (words_read / days_old.to_f).round(2)
   end
 
+  def average_visits_per_day
+    (sign_in_count / days_old.to_f).round(2)
+  end
+
   private
 
   def days_old
