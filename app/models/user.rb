@@ -498,7 +498,19 @@ class User < ApplicationRecord
     page_views.sum(:time_tracked_in_seconds)
   end
 
+  def average_articles_per_day
+    if days_old.zero?
+      return page_views.count
+    end
+
+    (page_views.count / days_old.to_f).round(2)
+  end
+
   private
+
+  def days_old
+    @days_old ||= (Date.current - created_at.to_date).to_i
+  end
 
   def word_count(words)
     words.split(/\W+/).length
