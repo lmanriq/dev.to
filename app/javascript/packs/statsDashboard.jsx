@@ -15,35 +15,35 @@ import { h, render } from 'preact';
 const StatsDash = props => {
   const { visits } = props;
   return (
-    <section>
-      <p>
-        Number of total visits to the site:
+    <section className="stats-info">
+      <article>
+        <p>Number of total visits to the site:</p>
         <span>{visits}</span>
-      </p>
-      <p>
-        Number of visits per day:
+      </article>
+      <article>
+        <p>Number of visits per day:</p>
         <span>2</span>
-      </p>
-      <p>
-        Average active time on pages per day:
+      </article>
+      <article>
+        <p>Average active time on pages per day:</p>
         <span>4</span>
-      </p>
-      <p>
-        Total articles read:
+      </article>
+      <article>
+        <p>Total articles read:</p>
         <span>5</span>
-      </p>
-      <p>
-        Total words read:
+      </article>
+      <article>
+        <p>Total words read:</p>
         <span>3</span>
-      </p>
-      <p>
-        Average articles & words per day:
+      </article>
+      <article>
+        <p>Average articles & words per day:</p>
         <span>4</span>
-      </p>
-      <p>
-        Number of comments:
+      </article>
+      <article>
+        <p>Number of comments:</p>
         <span>3</span>
-      </p>
+      </article>
     </section>
   );
 };
