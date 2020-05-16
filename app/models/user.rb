@@ -499,17 +499,17 @@ class User < ApplicationRecord
   end
 
   def average_articles_per_day
-    if days_old.zero?
-      return page_views.count
-    end
-
     (page_views.count / days_old.to_f).round(2)
+  end
+
+  def average_words_per_day
+    (words_read / days_old.to_f).round(2)
   end
 
   private
 
   def days_old
-    @days_old ||= (Date.current - created_at.to_date).to_i
+    @days_old ||= 1 + (Date.current - created_at.to_date).to_i
   end
 
   def word_count(words)
