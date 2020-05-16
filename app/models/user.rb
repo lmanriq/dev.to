@@ -494,6 +494,10 @@ class User < ApplicationRecord
     word_count(remove_tags(html_words))
   end
 
+  def page_time
+    page_views.sum(:time_tracked_in_seconds)
+  end
+
   private
 
   def word_count(words)
