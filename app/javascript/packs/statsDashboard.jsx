@@ -13,7 +13,16 @@ import PropTypes from 'prop-types';
 import { h, render } from 'preact';
 
 const StatsDash = props => {
-  const { visits } = props;
+  const {
+    visits,
+    dailyVisits,
+    dailyTime,
+    articles,
+    words,
+    dailyArticles,
+    dailyWords,
+    comments,
+  } = props;
   return (
     <section className="stats-info">
       <article>
@@ -22,27 +31,31 @@ const StatsDash = props => {
       </article>
       <article>
         <p>Number of visits per day:</p>
-        <span>2</span>
+        <span>{dailyVisits}</span>
       </article>
       <article>
         <p>Average active time on pages per day:</p>
-        <span>4</span>
+        <span>{dailyTime}</span>
       </article>
       <article>
         <p>Total articles read:</p>
-        <span>5</span>
+        <span>{articles}</span>
       </article>
       <article>
         <p>Total words read:</p>
-        <span>3</span>
+        <span>{words}</span>
       </article>
       <article>
-        <p>Average articles & words per day:</p>
-        <span>4</span>
+        <p>Average articles per day:</p>
+        <span>{dailyArticles}</span>
+      </article>
+      <article>
+        <p>Average words per day:</p>
+        <span>{dailyWords}</span>
       </article>
       <article>
         <p>Number of comments:</p>
-        <span>3</span>
+        <span>{comments}</span>
       </article>
     </section>
   );
@@ -50,11 +63,18 @@ const StatsDash = props => {
 
 const loadStatsDash = () => {
   const root = document.getElementById('stats-dash');
-  render(<StatsDash visits={root.dataset.visits} />, root);
+  render(<StatsDash {...root.dataset} />, root);
 };
 
 loadStatsDash();
 
 StatsDash.propTypes = {
   visits: PropTypes.number.isRequired,
+  dailyVisits: PropTypes.number.isRequired,
+  dailyTime: PropTypes.number.isRequired,
+  articles: PropTypes.number.isRequired,
+  words: PropTypes.number.isRequired,
+  dailyArticles: PropTypes.number.isRequired,
+  dailyWords: PropTypes.number.isRequired,
+  comments: PropTypes.number.isRequired,
 };
