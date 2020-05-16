@@ -1018,4 +1018,20 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "#visits_per_day" do
+    it "returns average visits per day" do
+      user.update(sign_in_count: 10)
+      Timecop.freeze(user.created_at.to_date + 9) do
+        expect(user.average_visits_per_day).to eq(1)
+      end
+    end
+
+    it "returns average visits for newly created user" do
+      user.update(sign_in_count: 10)
+      Timecop.freeze(user.created_at.to_date) do
+        expect(user.average_visits_per_day).to eq(10)
+      end
+    end
+  end
 end
