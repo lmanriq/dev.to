@@ -26,16 +26,12 @@
   }
 }
 
-.stats-info article p {
+.stats-info article p,
+.stats-info article span {
   text-align: center;
 }
 
 .stats-info article span {
   color: $avocado-lighter;
-  font-size: 2em;
+  font-size: 1.5em;
 }
-
-// $dolphin-lighter
-// $avocado-lighter
-// $peanut-lighter
-// $raspberry-lighter
