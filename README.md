@@ -1,3 +1,7 @@
+<div align="center>
+            This project adds functionality to the Dev.to legacy codebase. It uses the Ruby/Rails architecture and Preact components to expand upon the dashboard functionality. Users are now able to access a reader stats dashboard where they can see how long they spend on a page, articles read per day, and other pertnient information to their browsing habits.
+<div>
+
 <div align="center">
   <br>
   <img alt="DEV" src="https://thepracticaldev.s3.amazonaws.com/i/ro3538by3b2fupbs63sr.png" width="500px">
